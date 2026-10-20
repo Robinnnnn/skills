@@ -11,6 +11,14 @@ import sys
 import unicodedata
 
 
+# Only discard familiar downloader labels. Unknown words may identify a remix,
+# performance, featured artist, or other version and need manual review.
+DOWNLOAD_LABELS = {
+    "official", "audio", "video", "music", "lyric", "lyrics",
+    "visualizer", "visualiser", "hd", "hq", "720p", "1080p", "4k",
+}
+
+
 def words(value):
     value = unicodedata.normalize("NFKD", value).casefold()
     value = "".join(c for c in value if not unicodedata.combining(c))
@@ -59,7 +67,11 @@ def plan(directory, entries):
         if not required:
             notes.append("track %d: no usable matching words; skipped" % number)
             continue
-        matches = [p for p in files if required.issubset(words(p.stem))]
+        matches = []
+        for path in files:
+            source_words = words(path.stem)
+            if required.issubset(source_words) and source_words - required <= DOWNLOAD_LABELS:
+                matches.append(path)
         if len(matches) != 1:
             notes.append("track %d: %d matching files; skipped" % (number, len(matches)))
             continue

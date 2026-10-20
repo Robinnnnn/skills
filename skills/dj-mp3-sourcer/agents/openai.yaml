@@ -1,0 +1,3 @@
+interface:
+  display_name: "DJ MP3 Sourcer"
+  short_description: "Find the right track version and source its audio."

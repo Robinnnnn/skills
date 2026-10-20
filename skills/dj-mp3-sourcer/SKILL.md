@@ -42,6 +42,6 @@ Resolve the helper relative to this skill directory. It previews matching filena
 python3 scripts/normalize_filenames.py /absolute/output /absolute/tracklist.json
 ```
 
-Inspect the plan, then repeat with `--apply`. The helper uses literal normalized words, sanitizes filename components, skips symlinks and full mixes, and refuses ambiguous matches or occupied destinations. Unmatched files remain unchanged; verify them manually rather than forcing a rename. `scripts/normalize-filenames.sh` is a compatible shell entrypoint.
+Inspect the plan, then repeat with `--apply`. The helper requires all verified artist/title words and permits only familiar extra downloader labels such as Official, Audio, Video, Lyrics, or HD. Extra remix, performer, version, or unknown words cause a skip for manual review; keep the exact remix in the tracklist. It sanitizes filename components, skips symlinks and full mixes, and refuses ambiguous matches or occupied destinations. `scripts/normalize-filenames.sh` is a compatible shell entrypoint.
 
 Report downloaded files with source, actual format/bitrate, and any unresolved identity or quality issue. Do not imply that a valid file proves a correct musical match.

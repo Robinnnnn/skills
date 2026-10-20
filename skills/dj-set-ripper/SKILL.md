@@ -27,7 +27,7 @@ Use the bundled Python 3 helper to preview filenames against the verified `artis
 python3 scripts/normalize_filenames.py /absolute/set-folder /absolute/tracklist.json
 ```
 
-Inspect the plan, then repeat with `--apply`. It skips full mixes, occupied targets, ambiguous matches, and symlinks. Retain unmatched files for review. The shell entrypoint `scripts/normalize-filenames.sh` accepts the same arguments.
+Inspect the plan, then repeat with `--apply`. The helper requires all verified artist/title words and allows only familiar extra downloader labels such as Official, Audio, Video, Lyrics, or HD. It skips extra remix, performer, version, or unknown words for manual review; preserve the exact remix in the tracklist. It also skips full mixes, occupied targets, ambiguous matches, and symlinks. The shell entrypoint `scripts/normalize-filenames.sh` accepts the same arguments.
 
 ## Optional full mix
 

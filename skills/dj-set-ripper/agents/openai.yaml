@@ -1,0 +1,3 @@
+interface:
+  display_name: "DJ Set Ripper"
+  short_description: "Extract DJ tracklists and source individual tracks."

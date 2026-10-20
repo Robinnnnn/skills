@@ -1,6 +1,6 @@
 # Reusable production prompt
 
-Adapt this brief to the authorized scope. This is a reusable version of the October 2026 montage-explainer prompt, not a verbatim archival transcript. It deliberately omits private paths, edit-specific constraints, and historical dependency pins. Read it when preparing an execution brief.
+Use this brief when preparing an explainer. Replace the bracketed fields with the topic, audience, assets, and constraints for the current project.
 
 ```text
 Create a polished motion-graphics explainer of [TOPIC] for [AUDIENCE].
@@ -88,4 +88,4 @@ listening. Report the actual outcome and remaining limitations.
 
 ## Narrow revision follow-up
 
-For an accepted design, use a fresh scoped brief or resume the implementation session with: preserve the current visual direction, sound, and overall timing; list the exact corrections and linked metadata to refresh; identify frozen files/assets; request targeted still review, re-render, and meaningful final checks; stop once the corrected movie passes. Do not ask for another open-ended creative pass.
+For revisions to an approved design, list the exact corrections and any files, assets, timing, or sound that must stay unchanged. Render and inspect the affected scenes, then run the final checks. Stop once the requested corrections pass.

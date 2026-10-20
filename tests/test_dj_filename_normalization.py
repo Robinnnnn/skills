@@ -67,12 +67,72 @@ class FilenameNormalizationTests(unittest.TestCase):
                     self.assertEqual(result.returncode, 0, result.stderr)
                     self.assertEqual(sorted(p.name for p in output.iterdir()), sorted(files + ([symlink] if symlink else [])))
 
-    def test_shared_source_is_not_claimed_by_two_tracks(self):
+    def test_only_the_matching_version_can_claim_a_source(self):
         tracks = [{"artist": "Artist", "title": "Song"}, {"artist": "Artist", "title": "Song Remix"}]
         for skill in SKILLS:
-            result, output = self.run_helper(skill, tracks, ["Artist Song Remix.mp3"])
-            self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertTrue((output / "Artist Song Remix.mp3").exists())
+            with self.subTest(skill=skill):
+                result, output = self.run_helper(skill, tracks, ["Artist Song Remix.mp3"])
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(sorted(p.name for p in output.iterdir()), ["Artist - Song Remix.mp3"])
+                self.assertEqual((output / "Artist - Song Remix.mp3").read_bytes(), b"Artist Song Remix.mp3")
+
+    def test_extra_version_performer_and_unknown_words_are_preserved(self):
+        variants = ["Remix", "(Guest Remix)", "Live", "(Extended Mix)", "Acoustic",
+                    "Remastered", "Bootleg", "Radio Edit", "(2020)", "(feat Guest)",
+                    "(from Album)", "Official Future Remix", "(Club Version)", "UploadTag"]
+        for skill in SKILLS:
+            for variant in variants:
+                with self.subTest(skill=skill, variant=variant):
+                    name = "Artist Song " + variant + ".mp3"
+                    result, output = self.run_helper(skill, [{"artist": "Artist", "title": "Song"}], [name])
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    self.assertEqual(sorted(p.name for p in output.iterdir()), [name])
+                    self.assertEqual((output / name).read_bytes(), name.encode())
+
+    def test_exact_remix_keeps_its_name_while_downloader_labels_are_removed(self):
+        tracks = [{"artist": "Artist", "title": "Song (Guest Remix)"}]
+        name = "Artist Song (Guest Remix) Official Audio Lyrics HD.mp3"
+        for skill in SKILLS:
+            with self.subTest(skill=skill):
+                result, output = self.run_helper(skill, tracks, [name])
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(sorted(p.name for p in output.iterdir()), ["Artist - Song (Guest Remix).mp3"])
+                self.assertEqual((output / "Artist - Song (Guest Remix).mp3").read_bytes(), name.encode())
+
+    def test_different_or_missing_remix_qualifier_is_not_substituted(self):
+        tracks = [{"artist": "Artist", "title": "Song (Guest Remix)"}]
+        for skill in SKILLS:
+            for name in ["Artist Song.mp3", "Artist Song (Other Remix).mp3",
+                         "Artist Song (Guest Remix VIP).mp3"]:
+                with self.subTest(skill=skill, name=name):
+                    result, output = self.run_helper(skill, tracks, [name])
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    self.assertEqual(sorted(p.name for p in output.iterdir()), [name])
+
+    def test_matching_original_is_selected_without_renaming_an_extra_remix(self):
+        tracks = [{"artist": "Artist", "title": "Song"}]
+        files = ["Artist Song Official Audio.mp3", "Artist Song Remix.mp3"]
+        for skill in SKILLS:
+            with self.subTest(skill=skill):
+                result, output = self.run_helper(skill, tracks, files)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(sorted(p.name for p in output.iterdir()), ["Artist - Song.mp3", files[1]])
+                self.assertEqual((output / "Artist - Song.mp3").read_bytes(), files[0].encode())
+
+    def test_eligible_files_and_shared_eligible_source_remain_ambiguous(self):
+        scenarios = [
+            ([{"artist": "Artist", "title": "Song"}],
+             ["Artist Song Official.mp3", "Artist Song Video.mp3"]),
+            ([{"artist": "Artist", "title": "Song Remix"},
+              {"artist": "Artist", "title": "Remix Song"}],
+             ["Artist Song Remix Official.mp3"]),
+        ]
+        for skill in SKILLS:
+            for tracks, files in scenarios:
+                with self.subTest(skill=skill, tracks=tracks, files=files):
+                    result, output = self.run_helper(skill, tracks, files)
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    self.assertEqual(sorted(p.name for p in output.iterdir()), sorted(files))
 
     def test_clean_specific_version_is_not_renamed_to_another_track(self):
         tracks = [{"artist": "Artist", "title": "Song Remix"}, {"artist": "Artist", "title": "Song"}]

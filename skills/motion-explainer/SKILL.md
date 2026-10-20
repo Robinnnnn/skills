@@ -3,7 +3,7 @@ name: motion-explainer
 description: Create or revise motion-graphics explainers, coding tutorials, and product walkthroughs with Remotion. Use montage for highlight reels assembled from existing footage.
 ---
 
-# Motion explainer
+# Motion Explainer
 
 Create and render a polished motion-graphics explainer of the user's topic. Handle art direction, implementation, dependencies, sound design, and refinement end to end.
 
