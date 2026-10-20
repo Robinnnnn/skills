@@ -4,6 +4,7 @@ Some skills for vibing
 
 | Skill | What it does |
 |---|---|
+| [pls-dont-overdesign](skills/pls-dont-overdesign/SKILL.md) | Keep interfaces and visual mockups minimal, with purposeful copy and restrained decoration. |
 | [montage](skills/montage/) | Turn photos, Live Photos, and videos into a montage, with optional export to a video editor. |
 | [motion-explainer](skills/motion-explainer/SKILL.md) | Create animated explainers with Remotion, with an MP4 and editable source. |
 | [dj-set-ripper](skills/dj-set-ripper/SKILL.md) | Extract a DJ set's tracklist and source its individual tracks, with a per-track result log. |
