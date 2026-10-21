@@ -4,6 +4,14 @@
 
 Requirements: Python 3 with Pillow and pillow-heif, plus ExifTool. Reading Live Photo capture timing requires macOS, Swift and ffprobe. Rendering requires FFmpeg with zscale and tonemap, plus ffprobe. Run commands from the skill directory.
 
+Install the Python photo dependencies from [requirements.txt](../scripts/requirements.txt) in the project's Python environment:
+
+```sh
+python3 -m pip install -r scripts/requirements.txt
+```
+
+Prepare the archive:
+
 ```sh
 python3 scripts/prepare_photos.py --archive /absolute/source.zip --output /absolute/prepared-photos
 ```

@@ -7,7 +7,7 @@ description: Create or revise motion-graphics explainers, coding tutorials, and 
 
 Create and render a polished motion-graphics explainer of the user's topic. Handle art direction, implementation, dependencies, sound design, and refinement end to end.
 
-Work in the requested project directory. Use React/TypeScript and Remotion for animation. Python audio synthesis and FFmpeg can help with sound and media preparation.
+Work in the requested project directory. Use React/TypeScript and Remotion for animation. Requires Node.js and a package manager such as npm; follow the project's existing dependency setup when present. Python audio synthesis and FFmpeg can help with sound and media preparation.
 
 Restructure scenes and add components or dependencies as needed. Prioritize clarity over spectacle.
 
@@ -50,6 +50,6 @@ Deliver:
 
 Report the checks performed and any review still needed. Compilation alone does not mean the film is finished.
 
-## Example reference
+## Demo
 
-You may watch [this motion explainer](https://drive.google.com/file/d/1pjr_U-lLN8tP6xqgwIvJn3tQ7iAVOF3H/view?usp=drivesdk) for ideas about pacing, transitions, and sound. Adapt the techniques to your subject.
+[View the demo on X](https://x.com/swaglord__420/status/2110095975620702386).

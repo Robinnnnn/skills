@@ -22,3 +22,7 @@ Before handing over, remove anything whose absence would not make the result har
 ## Example: a contents panel
 
 A contents panel may need only section names, entries, and page numbers. When context already supplies orientation, omit redundant titles, ranges, dividers, and progress footers. Use type and spacing for grouping, quiet metadata, and selective emphasis for the current entry. Keep controls and context that help people navigate.
+
+## Demo
+
+[View the demo on X](https://x.com/swaglord__420/status/2112579344484745331).

@@ -1,11 +1,15 @@
 ---
 name: dj-set-ripper
-description: Extract a tracklist from a DJ set or mix link and source the individual songs with dj-mp3-sourcer. Use for YouTube, SoundCloud, Mixcloud, 1001Tracklists, or a pasted tracklist; produce a per-track result log.
+description: Extract a tracklist from a DJ set or mix link and source the individual songs. Use for YouTube, SoundCloud, Mixcloud, 1001Tracklists, or a pasted tracklist; produce a per-track result log.
 ---
 
 # DJ set ripper
 
-Extract the set's tracklist, source its individual tracks, and preserve the result for every entry. Install the sibling [dj-mp3-sourcer](../dj-mp3-sourcer/SKILL.md) skill for individual-track sourcing; do not substitute one download of the full mix for the requested separate tracks.
+Extract the set's tracklist, source its individual tracks, and preserve the result for every entry. Do not substitute one download of the full mix for the requested separate tracks.
+
+## Tools
+
+Use available web search/page tools for discovery, `yt-dlp` or `spotdl` for downloads, and FFmpeg and ffprobe for audio extraction and inspection. The filename helper needs Python 3. Inspect installed command help before relying on flags; install missing tools only within the requested environment and scope.
 
 ## Extract the tracklist
 
@@ -17,11 +21,15 @@ Save this tracklist with the set's title and source URL in a dedicated output fo
 
 ## Source individual tracks
 
-Use the [dj-mp3-sourcer workflow](../dj-mp3-sourcer/SKILL.md) for every identified track. Deduplicate identical artist/title/version requests while retaining all original tracklist positions. Leave unidentified tracks in the log. Respect the user's free-only preference and exact remix identity; surface purchase links instead of buying tracks.
+Deduplicate identical artist/title/version requests while retaining all original tracklist positions. Leave unidentified tracks in the log. Match the exact artist, title, and remix; prefer an extended mix when no version is specified. A different original or radio edit is not an equivalent match.
+
+Search Bandcamp, Beatport, Amazon's digital music store, Spotify metadata, then YouTube, stopping at a verified suitable match. Surface purchase links and observed prices for paid releases; do not buy tracks. In free-only mode, skip purchase searches and use available free or user-accessible sources. Report unavailable releases and region restrictions without silently substituting another version.
+
+Download accessible audio as MP3 into the set folder, preserving existing files. Verify artist/title/version, duration, decoding, and output metadata. Preserve available tags and cover art; include BPM/key only when sourced. Record the source URL and measured format, bitrate, and size. Spotify supplies metadata to spotDL, not proof of the downloaded audio's provenance or quality; encoding at 320 kb/s cannot restore quality missing from the source. A valid file alone does not establish a correct musical match.
 
 When workers are available, distribute distinct tracks in bounded batches of three to five. Collect their filenames, source URLs, measured bitrate/size, and status. Wait for all batches before normalizing filenames so workers do not rename each other's files.
 
-Use the bundled Python 3 helper to preview filenames against the verified `artist`/`title` tracklist:
+Resolve bundled helper paths relative to this skill directory. Use the Python 3 helper to preview filenames against the verified `artist`/`title` tracklist:
 
 ```sh
 python3 scripts/normalize_filenames.py /absolute/set-folder /absolute/tracklist.json
@@ -31,7 +39,7 @@ Inspect the plan, then repeat with `--apply`. The helper requires all verified a
 
 ## Optional full mix
 
-Download the full mix only when the user requests it. Use a distinct name such as `Set Name [Full Mix].mp3`, and record its source and result separately. `yt-dlp`, FFmpeg, and ffprobe are needed for supported audio extraction; check their installed capabilities first.
+Download the full mix only when the user requests it. Use a distinct name such as `Set Name [Full Mix].mp3`, and record its source and result separately.
 
 ## Result log
 
