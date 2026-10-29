@@ -1,9 +1,10 @@
 # Agent skills
 
-Practical agent skills for design, video, and music.
+Practical agent skills for collaboration, design, video, and music.
 
 | Skill | What it does |
 |---|---|
+| [lmk](skills/lmk/SKILL.md) | Give feedback on a proposed change before editing files or implementing it. |
 | [pls-dont-overdesign](skills/pls-dont-overdesign/SKILL.md) | Keep interfaces and mockups clear, with purposeful copy and minimal decoration. [Demo](https://x.com/swaglord__420/status/2112579344484745331). |
 | [montage](skills/montage/SKILL.md) | Create montages from photos, Live Photos, and videos, with optional export for further editing. [Demo](https://x.com/swaglord__420/status/2109768957741986180). |
 | [motion-explainer](skills/motion-explainer/SKILL.md) | Create animated explainers and product walkthroughs with Remotion. [Demo](https://x.com/swaglord__420/status/2110095975620702386). |
