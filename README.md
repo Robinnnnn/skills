@@ -6,6 +6,7 @@ Practical agent skills for collaboration, design, video, and music.
 |---|---|
 | [ez-chrome-extension-dev](skills/ez-chrome-extension-dev/SKILL.md) | Develop unpacked Chrome extensions with a popup reload control and verified build feedback. |
 | [lmk](skills/lmk/SKILL.md) | Give feedback on a proposed change before editing files or implementing it. |
+| [gn](skills/gn/SKILL.md) | Continue agreed work while the user is asleep or away, then provide a concise handoff. |
 | [status-update](skills/status-update/SKILL.md) | Give a succinct, high-level progress update during an ongoing task, then continue the work. |
 | [pls-dont-overdesign](skills/pls-dont-overdesign/SKILL.md) | Keep interfaces and mockups clear, with purposeful copy and minimal decoration. [Demo](https://x.com/swaglord__420/status/2112579344484745331). |
 | [montage](skills/montage/SKILL.md) | Create montages from photos, Live Photos, and videos, with optional export for further editing. [Demo](https://x.com/swaglord__420/status/2109768957741986180). |
